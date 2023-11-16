@@ -60,7 +60,7 @@ public class DataInserting {
                         }
                     });
             preparedStatement.executeBatch();
-            connection.commit();
+           // connection.commit();
         }
     }
 
