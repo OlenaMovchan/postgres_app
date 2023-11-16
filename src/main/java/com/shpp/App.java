@@ -14,6 +14,7 @@ public class App {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
+        LOGGER.info("Start program");
         int batchSize = 1000;
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         DataInserting insertDataPreparedStatement = new DataInserting();
@@ -44,9 +45,9 @@ public class App {
             LOGGER.info("Query time with indexes: " + stopWatch.getTime() + " ms");
         } catch (SQLException e) {
             LOGGER.error("Error insert data", e.getMessage());
+
         }
     }
-
 
 //        DataSource dataSource = createDataSource();
 //       // Connection conn = dataSource.getConnection();
