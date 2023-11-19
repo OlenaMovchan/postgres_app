@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -60,38 +63,44 @@ public class DataInserting {
                         }
                     });
             preparedStatement.executeBatch();
-           // connection.commit();
+            // connection.commit();
         }
     }
 
-    public  void insertProducts(Connection connection) throws SQLException {
+    public void insertProducts(Connection connection) throws SQLException {
         String insertProductSQL = "INSERT INTO products (product_name, category_id) VALUES (?, ?)";
         AtomicInteger integer = new AtomicInteger(1);
         Faker faker = new Faker();
         ValidatorClass serviceClass = new ValidatorClass();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
+            ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
             Stream.generate(() -> new ProductDTO(
                             "Product_" + integer.get(),
                             faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)
                     ))
                     .limit(NUMBER_OF_PRODUCT_NAMES)
-                    .forEach(productDTO -> {
-                        if (serviceClass.validateDTO(productDTO)) {
-                            try {
-                                preparedStatement.setString(1, productDTO.getProductName());
-                                preparedStatement.setInt(2, productDTO.getCategoryId());
-                                preparedStatement.addBatch();
-                                integer.incrementAndGet();
-                                if (integer.get() % 20000 == 0) {
-                                    preparedStatement.executeBatch();
-                                }
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                    .forEach(productDTO -> executorService.submit(() -> {
+                if (serviceClass.validateDTO(productDTO)) {
+                    try {
+                        preparedStatement.setString(1, productDTO.getProductName());
+                        preparedStatement.setInt(2, productDTO.getCategoryId());
+                        preparedStatement.addBatch();
+                        integer.incrementAndGet();
+                        if (integer.get() % 20000 == 0) {
+                            preparedStatement.executeBatch();
                         }
-                    });
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }));
+            executorService.shutdown();
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             preparedStatement.executeBatch();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
 
     }
@@ -102,11 +111,12 @@ public class DataInserting {
         ValidatorClass serviceClass = new ValidatorClass();
         String insertProductSQL = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
+            ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
             Stream.generate(() -> new DeliveryDTO(faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
-                    faker.number().numberBetween(1, NUMBER_OF_STORES),
-                    faker.number().numberBetween(1, batchSize)))
+                            faker.number().numberBetween(1, NUMBER_OF_STORES),
+                            faker.number().numberBetween(1, batchSize)))
                     .limit(NUMBER_OF_PRODUCT_NAMES)
-                    .forEach(deliveryDTO -> {
+                    .forEach(deliveryDTO -> executorService.submit(()->{
                         if (serviceClass.validateDTO(deliveryDTO)) {
                             try {
                                 preparedStatement.setInt(1, deliveryDTO.getProductId());
@@ -121,8 +131,13 @@ public class DataInserting {
                                 throw new RuntimeException(e);
                             }
                         }
-                    });
-            preparedStatement.executeBatch();//commit
+                    }));
+            executorService.shutdown();
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            preparedStatement.executeBatch();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
     }
 
