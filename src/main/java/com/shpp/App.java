@@ -22,21 +22,21 @@ public class App {
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
         try (Connection connection = ConnectorDB.getConnection()) {
-            databaseInitializer.createTable(connection);
-            stopWatch.start();
+            //databaseInitializer.createTable(connection);
+           // stopWatch.start();
             double start = System.currentTimeMillis();
-            insertDataPreparedStatement.insertStores(connection);
-            insertDataPreparedStatement.insertProductCategories(connection, batchSize);
-            insertDataPreparedStatement.insertProducts(connection);
+            //insertDataPreparedStatement.insertStores(connection);
+            //insertDataPreparedStatement.insertProductCategories(connection, batchSize);
+            //insertDataPreparedStatement.insertProducts(connection);
 
-            insertDataPreparedStatement.insertDeliveries(connection, batchSize);
-            LOGGER.info("Data generation completed");
-            stopWatch.stop();
-            double stop = System.currentTimeMillis();
-            double elapsed = (stop - start)/1000;
-            LOGGER.info("Generation and insertion time: " + stopWatch.getTime() + " ms");
-            LOGGER.info("Speed: " + elapsed);
-            stopWatch.reset();
+           // insertDataPreparedStatement.insertDeliveries(connection, batchSize);
+            //LOGGER.info("Data generation completed");
+           // stopWatch.stop();
+            //double stop = System.currentTimeMillis();
+            //double elapsed = (stop - start)/1000;
+           // LOGGER.info("Generation and insertion time: " + stopWatch.getTime() + " ms");
+           // LOGGER.info("Speed: " + elapsed);
+           // stopWatch.reset();
             stopWatch.start();
             queryExecutor.querySQL(connection);
             stopWatch.stop();
