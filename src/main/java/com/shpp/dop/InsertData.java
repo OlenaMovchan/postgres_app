@@ -1,7 +1,7 @@
 package com.shpp.dop;
 
 import com.github.javafaker.Faker;
-import com.shpp.ServiceClass;
+import com.shpp.ValidatorClass;
 import com.shpp.dto.CategoryDTO;
 import com.shpp.dto.DeliveryDTO;
 import com.shpp.dto.ProductDTO;
@@ -25,7 +25,7 @@ public class InsertData {
     private static final String INSERT_DELIVERY_QUERY = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
 
     private static final Faker faker = new Faker(new Locale("uk"));
-    private static final ServiceClass serviceClass = new ServiceClass();
+    private static final ValidatorClass serviceClass = new ValidatorClass();
 
     public static void insertStores(Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STORE_QUERY)) {

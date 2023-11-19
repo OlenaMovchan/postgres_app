@@ -11,7 +11,7 @@ public class IndexCreator {
 
     public void createIndex(Connection connection) {
         try (Statement statement = connection.createStatement()) {
-
+//primary key auto index???
             createIndex(statement, "idx_categories_category_id", "categories", "category_id");
             createIndex(statement, "idx_products_category_id", "products", "category_id");
             createIndex(statement, "idx_deliveries_product_id", "deliveries", "product_id");
