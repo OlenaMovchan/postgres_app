@@ -12,10 +12,10 @@ public class DatabaseInitializer {
     public void createTable(Connection connection) {
             try (Statement statement = connection.createStatement()) {
 
-                statement.executeUpdate("DROP TABLE IF EXISTS deliveries");
-                statement.executeUpdate("DROP TABLE IF EXISTS products");
-                statement.executeUpdate("DROP TABLE IF EXISTS stores");
-                statement.executeUpdate("DROP TABLE IF EXISTS categories");
+                statement.executeUpdate("DROP TABLE IF EXISTS deliveries CASCADE");
+                statement.executeUpdate("DROP TABLE IF EXISTS products CASCADE");
+                statement.executeUpdate("DROP TABLE IF EXISTS stores CASCADE");
+                statement.executeUpdate("DROP TABLE IF EXISTS categories CASCADE");
 
                 statement.executeUpdate("CREATE TABLE categories ("
                         + "category_id SERIAL PRIMARY KEY,"
