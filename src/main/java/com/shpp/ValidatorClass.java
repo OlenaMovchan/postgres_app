@@ -3,11 +3,11 @@ package com.shpp;
 import jakarta.validation.*;
 import java.util.Set;
 
-public class ServiceClass {
+public class ValidatorClass {
 
     private final Validator validator;
 
-    public ServiceClass() {
+    public ValidatorClass() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         this.validator = factory.getValidator();
     }

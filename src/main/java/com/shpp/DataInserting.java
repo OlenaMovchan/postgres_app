@@ -22,7 +22,7 @@ public class DataInserting {
         String insertStoreSQL = "INSERT INTO stores (location) VALUES (?)";
         AtomicInteger integer = new AtomicInteger(1);
         Faker faker = new Faker(new Locale("uk"));
-        ServiceClass serviceClass = new ServiceClass();
+        ValidatorClass serviceClass = new ValidatorClass();
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertStoreSQL)) {
             Stream.generate(() -> new StoreDTO("Epicentre, " + faker.address().fullAddress()))
                     .limit(NUMBER_OF_STORES)
@@ -44,7 +44,7 @@ public class DataInserting {
     public void insertProductCategories(Connection connection, int batchSize) throws SQLException {
         String insertCategorySQL = "INSERT INTO categories (category_name) VALUES (?)";
         AtomicInteger integer = new AtomicInteger(1);
-        ServiceClass serviceClass = new ServiceClass();
+        ValidatorClass serviceClass = new ValidatorClass();
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertCategorySQL)) {
             Stream.generate(() -> new CategoryDTO("Category_" + integer.get()))
                     .limit(NUMBER_OF_CATEGORIES)
@@ -68,7 +68,7 @@ public class DataInserting {
         String insertProductSQL = "INSERT INTO products (product_name, category_id) VALUES (?, ?)";
         AtomicInteger integer = new AtomicInteger(1);
         Faker faker = new Faker();
-        ServiceClass serviceClass = new ServiceClass();
+        ValidatorClass serviceClass = new ValidatorClass();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
             Stream.generate(() -> new ProductDTO(
@@ -99,31 +99,84 @@ public class DataInserting {
     public void insertDeliveries(Connection connection, int batchSize) throws SQLException {
         AtomicInteger integer = new AtomicInteger(1);
         Faker faker = new Faker();
-        ServiceClass serviceClass = new ServiceClass();
+        ValidatorClass serviceClass = new ValidatorClass();
         String insertProductSQL = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
             Stream.generate(() -> new DeliveryDTO(faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
                     faker.number().numberBetween(1, NUMBER_OF_STORES),
                     faker.number().numberBetween(1, batchSize)))
                     .limit(NUMBER_OF_PRODUCT_NAMES)
-                    .parallel()
                     .forEach(deliveryDTO -> {
                         if (serviceClass.validateDTO(deliveryDTO)) {
                             try {
                                 preparedStatement.setInt(1, deliveryDTO.getProductId());
                                 preparedStatement.setInt(2, deliveryDTO.getStoreId());
                                 preparedStatement.setInt(3, deliveryDTO.getProductCount());
+                                preparedStatement.addBatch();
                                 integer.incrementAndGet();
                                 if (integer.get() % 20000 == 0) {
-                                    preparedStatement.executeBatch();
+                                    preparedStatement.executeBatch();//commit
                                 }
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
                             }
                         }
                     });
-            preparedStatement.executeBatch();
+            preparedStatement.executeBatch();//commit
         }
     }
 
 }
+
+//package net.javaguides.postgresql.tutorial;
+//
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
+//import java.sql.SQLException;
+//import java.util.Arrays;
+//import java.util.List;
+//
+//public class InsertMultipleRecordsExample {
+//
+//    private final String url = "jdbc:postgresql://localhost/myDB";
+//    private final String user = "postgres";
+//    private final String password = "root";
+//
+//    private static final String INSERT_USERS_SQL = "INSERT INTO users" +
+//        "  (id, name, email, country, password) VALUES " +
+//        " (?, ?, ?, ?, ?);";
+//
+//    /**
+//     * insert multiple users
+//     */
+//    public void insertUsers(List < User > list) {
+//        try (
+//            Connection conn = DriverManager.getConnection(url, user, password); PreparedStatement statement = conn.prepareStatement(INSERT_USERS_SQL);) {
+//            int count = 0;
+//
+//            for (User user: list) {
+//                statement.setInt(1, user.getId());
+//                statement.setString(2, user.getName());
+//                statement.setString(3, user.getEmail());
+//                statement.setString(4, user.getCountry());
+//                statement.setString(5, user.getPassword());
+//
+//                statement.addBatch();
+//                count++;
+//                // execute every 100 rows or less
+//                if (count % 100 == 0 || count == list.size()) {
+//                    statement.executeBatch();
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        InsertMultipleRecordsExample example = new InsertMultipleRecordsExample();
+//        example.insertUsers(Arrays.asList(new User(2, "Ramesh", "ramesh@gmail.com", "India", "password123"),
+//            new User(3, "John", "john@gmail.com", "US", "password123")));
+//    }
+//}

@@ -24,13 +24,18 @@ public class App {
         try (Connection connection = ConnectorDB.getConnection()) {
             databaseInitializer.createTable(connection);
             stopWatch.start();
+            double start = System.currentTimeMillis();
             insertDataPreparedStatement.insertStores(connection);
             insertDataPreparedStatement.insertProductCategories(connection, batchSize);
             insertDataPreparedStatement.insertProducts(connection);
+
             insertDataPreparedStatement.insertDeliveries(connection, batchSize);
             LOGGER.info("Data generation completed");
             stopWatch.stop();
+            double stop = System.currentTimeMillis();
+            double elapsed = (stop - start)/1000;
             LOGGER.info("Generation and insertion time: " + stopWatch.getTime() + " ms");
+            LOGGER.info("Speed: " + elapsed);
             stopWatch.reset();
             stopWatch.start();
             queryExecutor.querySQL(connection);
@@ -48,6 +53,21 @@ public class App {
 
         }
     }
+
+
+    //  DbFunctions db=new DbFunctions();
+    //        Connection conn=db.connect_to_db("tutdb","postgres","abhi1234");
+    //        //db.createTable(conn,"employee");
+    //        //db.insert_row(conn,"employee","Rajat","India");
+    //        //db.update_name(conn,"employee","Rahul","Raj");
+    //        //db.search_by_name(conn,"employee","abhishek");
+    //        //db.delete_row_by_name(conn,"employee","abhishek");
+    //        //db.delete_row_by_id(conn,"employee",4);
+    //        //db.read_data(conn,"employee");
+    //        db.delete_table(conn,"employee");
+    //	// write your code here
+
+
 
 //        DataSource dataSource = createDataSource();
 //       // Connection conn = dataSource.getConnection();
