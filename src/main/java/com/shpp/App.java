@@ -21,15 +21,15 @@ public class App {
         QueryExecutor queryExecutor = new QueryExecutor();
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
-        try (Connection connection = ConnectorDB.getConnection()) {
-            databaseInitializer.createTable(connection);
+        try {
+            databaseInitializer.createTable();
             stopWatch.start();
             double start = System.currentTimeMillis();
-            insertDataPreparedStatement.insertStores(connection);
-            insertDataPreparedStatement.insertProductCategories(connection, batchSize);
-            insertDataPreparedStatement.insertProducts(connection);
+            insertDataPreparedStatement.insertStores();
+            insertDataPreparedStatement.insertProductCategories();
+            insertDataPreparedStatement.insertProducts();
 
-            insertDataPreparedStatement.insertDeliveries(connection, batchSize);
+            insertDataPreparedStatement.insertDeliveries(batchSize);
             LOGGER.info("Data generation completed");
             stopWatch.stop();
             double stop = System.currentTimeMillis();
@@ -38,18 +38,19 @@ public class App {
             LOGGER.info("Speed: " + elapsed);
             stopWatch.reset();
             stopWatch.start();
-            queryExecutor.querySQL(connection);
+            queryExecutor.querySQL();
             stopWatch.stop();
             LOGGER.info("Query time without indexes: " + stopWatch.getTime() + " ms");
 
-            indexCreator.createIndex(connection);
+            indexCreator.createIndex();
             stopWatch.reset();
             stopWatch.start();
-            queryExecutor.querySQL(connection);
+            queryExecutor.querySQL();
             stopWatch.stop();
             LOGGER.info("Query time with indexes: " + stopWatch.getTime() + " ms");
-        } catch (SQLException e) {
-            LOGGER.error("Error insert data", e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("Connection failed...");
+           // LOGGER.error("Error insert data", e.getMessage());
 
         }
     }

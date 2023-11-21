@@ -2,10 +2,10 @@ package com.shpp.dop;
 
 import com.github.javafaker.Faker;
 import com.shpp.ValidatorClass;
-import com.shpp.dto.CategoryDTO;
-import com.shpp.dto.DeliveryDTO;
-import com.shpp.dto.ProductDTO;
-import com.shpp.dto.StoreDTO;
+import com.shpp.dto.Category;
+import com.shpp.dto.Delivery;
+import com.shpp.dto.Product;
+import com.shpp.dto.Store;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class InsertData {
 
     public static void insertStores(Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STORE_QUERY)) {
-            Stream.generate(() -> new StoreDTO("Epicentre, " + faker.address().fullAddress()))
+            Stream.generate(() -> new Store("Epicentre, " + faker.address().fullAddress()))
                     .limit(NUMBER_OF_STORES)
                     .filter(serviceClass::validateDTO)
                     .forEach(storeDTO -> addToBatch(preparedStatement, storeDTO.getLocation()));
@@ -40,7 +40,7 @@ public class InsertData {
     public static void insertProductCategories(Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CATEGORY_QUERY)) {
             IntStream.rangeClosed(1, NUMBER_OF_CATEGORIES)
-                    .mapToObj(i -> new CategoryDTO("Category_" + i))
+                    .mapToObj(i -> new Category("Category_" + i))
                     .filter(serviceClass::validateDTO)
                     .forEach(categoryDTO -> addToBatch(preparedStatement, categoryDTO.getCategoryName()));
             preparedStatement.executeBatch();
@@ -50,7 +50,7 @@ public class InsertData {
     public static void insertProducts(Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_QUERY)) {
             IntStream.rangeClosed(1, NUMBER_OF_PRODUCT_NAMES)
-                    .mapToObj(i -> new ProductDTO("Product_" + i, faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
+                    .mapToObj(i -> new Product("Product_" + i, faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
                     .filter(serviceClass::validateDTO)
                     .forEach(productDTO -> addToBatch(preparedStatement, productDTO.getProductName(), productDTO.getCategoryId()));
             preparedStatement.executeBatch();
@@ -60,7 +60,7 @@ public class InsertData {
     public static void insertDeliveries(Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DELIVERY_QUERY)) {
             IntStream.rangeClosed(1, NUMBER_OF_PRODUCT_NAMES)
-                    .mapToObj(i -> new DeliveryDTO(
+                    .mapToObj(i -> new Delivery(
                             faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
                             faker.number().numberBetween(1, NUMBER_OF_STORES),
                             faker.number().numberBetween(1, 1000)))

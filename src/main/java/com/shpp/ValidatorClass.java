@@ -12,7 +12,7 @@ public class ValidatorClass {
         this.validator = factory.getValidator();
     }
 
-    public  <T> boolean validateDTO(T dto) {
+    public <T> boolean validateDTO(T dto) {
         Set<ConstraintViolation<T>> violations = validator.validate(dto);
         if (!violations.isEmpty()) {
             throw new ValidationException("DTO validation failed");

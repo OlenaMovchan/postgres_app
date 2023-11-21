@@ -1,5 +1,6 @@
 package com.shpp.query;
 
+import com.shpp.ConnectorDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ public class QueryExecutor {
 
     private static final String QUERY_FILE = "query.sql"; // Change this to the actual file name
 
-    public  void querySQL(Connection connection) {
+    public  void querySQL() {
         String categoryName = System.getProperty("category", "Category_435");
 
         String sql = "SELECT " +
@@ -42,7 +43,7 @@ public class QueryExecutor {
         // sql = loadQueryFromFile();
         QueryResult result = null;
         try {
-            result = executeQuery(connection, sql, categoryName);
+            result = executeQuery(sql, categoryName);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -69,8 +70,9 @@ public class QueryExecutor {
         return queryBuilder.toString();
     }
 
-    private  QueryResult executeQuery(Connection connection, String sql, String categoryName) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    private  QueryResult executeQuery(String sql, String categoryName) throws SQLException {
+        try (Connection connection = ConnectorDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, categoryName);
 
             try (ResultSet resultSet = statement.executeQuery()) {
