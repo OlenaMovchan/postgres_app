@@ -9,16 +9,17 @@ import java.sql.Statement;
 public class IndexCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexCreator.class);
 
-    public void createIndex(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
-//primary key auto index???
+    public void createIndex() {
+        try (Connection connection = ConnectorDB.getConnection();
+             Statement statement = connection.createStatement()) {
+            //primary key auto index???
             createIndex(statement, "idx_categories_category_id", "categories", "category_id");
             createIndex(statement, "idx_products_category_id", "products", "category_id");
             createIndex(statement, "idx_deliveries_product_id", "deliveries", "product_id");
             createIndex(statement, "idx_deliveries_store_id", "deliveries", "store_id");
             createIndex(statement, "idx_stores_store_id", "stores", "store_id");
 
-            LOGGER.info("Indexes created successfully.");
+            LOGGER.info("Indexes created successfully");
 
         } catch (SQLException e) {
             e.printStackTrace();

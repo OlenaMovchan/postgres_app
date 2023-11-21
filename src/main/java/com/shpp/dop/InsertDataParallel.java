@@ -1,10 +1,10 @@
 package com.shpp.dop;
 import com.github.javafaker.Faker;
 import com.shpp.ValidatorClass;
-import com.shpp.dto.CategoryDTO;
-import com.shpp.dto.DeliveryDTO;
-import com.shpp.dto.ProductDTO;
-import com.shpp.dto.StoreDTO;
+import com.shpp.dto.Category;
+import com.shpp.dto.Delivery;
+import com.shpp.dto.Product;
+import com.shpp.dto.Store;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class InsertDataParallel {
             forkJoinPool.submit(() ->
                     IntStream.range(0, NUMBER_OF_STORES)
                             .parallel()
-                            .mapToObj(i -> new StoreDTO("Epicentre, " + faker.address().fullAddress()))
+                            .mapToObj(i -> new Store("Epicentre, " + faker.address().fullAddress()))
                             .filter(serviceClass::validateDTO)
                             .forEach(storeDTO -> addToBatch(preparedStatement, storeDTO.getLocation()))
             ).join();
@@ -48,7 +48,7 @@ public class InsertDataParallel {
             forkJoinPool.submit(() ->
                     IntStream.rangeClosed(1, NUMBER_OF_CATEGORIES)
                             .parallel()
-                            .mapToObj(i -> new CategoryDTO("Category_" + i))
+                            .mapToObj(i -> new Category("Category_" + i))
                             .filter(serviceClass::validateDTO)
                             .forEach(categoryDTO -> addToBatch(preparedStatement, categoryDTO.getCategoryName()))
             ).join();
@@ -63,7 +63,7 @@ public class InsertDataParallel {
             forkJoinPool.submit(() ->
                     IntStream.rangeClosed(1, NUMBER_OF_PRODUCT_NAMES)
                             .parallel()
-                            .mapToObj(i -> new ProductDTO("Product_" + i, faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
+                            .mapToObj(i -> new Product("Product_" + i, faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
                             .filter(serviceClass::validateDTO)
                             .forEach(productDTO -> addToBatch(preparedStatement, productDTO.getProductName(), productDTO.getCategoryId()))
             ).join();
@@ -78,7 +78,7 @@ public class InsertDataParallel {
             forkJoinPool.submit(() ->
                     IntStream.rangeClosed(1, NUMBER_OF_PRODUCT_NAMES)
                             .parallel()
-                            .mapToObj(i -> new DeliveryDTO(
+                            .mapToObj(i -> new Delivery(
                                     faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
                                     faker.number().numberBetween(1, NUMBER_OF_STORES),
                                     faker.number().numberBetween(1, 1000)))

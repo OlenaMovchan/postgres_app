@@ -2,16 +2,15 @@ package com.shpp.dto;
 
 import jakarta.validation.constraints.Positive;
 
-import javax.validation.constraints.Digits;
 
-public class DeliveryDTO {
+public class Delivery{
 
     private int productId;
     private int storeId;
     @Positive
     private int productCount;
 
-    public DeliveryDTO(int productId, int storeId, int productCount) {
+    public Delivery(int productId, int storeId, int productCount) {
         this.productId = productId;
         this.storeId = storeId;
         this.productCount = productCount;

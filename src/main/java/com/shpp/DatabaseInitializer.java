@@ -9,13 +9,20 @@ import java.sql.Statement;
 
 public class DatabaseInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-    public void createTable(Connection connection) {
-            try (Statement statement = connection.createStatement()) {
+    public void createTable() {
+            try (Connection connection = ConnectorDB.getConnection();
+                 Statement statement = connection.createStatement()) {
 
                 statement.executeUpdate("DROP TABLE IF EXISTS deliveries CASCADE");
                 statement.executeUpdate("DROP TABLE IF EXISTS products CASCADE");
                 statement.executeUpdate("DROP TABLE IF EXISTS stores CASCADE");
                 statement.executeUpdate("DROP TABLE IF EXISTS categories CASCADE");
+
+                //statement.executeUpdate("DROP INDEX idx_categories_category_id");
+                //statement.executeUpdate("DROP INDEX idx_products_category_id");
+                //statement.executeUpdate("DROP INDEX idx_deliveries_product_id");
+                //statement.executeUpdate("DROP INDEX idx_deliveries_store_id");
+                //statement.executeUpdate("DROP INDEX idx_stores_store_id");
 
                 statement.executeUpdate("CREATE TABLE categories ("
                         + "category_id SERIAL PRIMARY KEY,"

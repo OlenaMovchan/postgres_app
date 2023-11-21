@@ -10,24 +10,24 @@ m	java:S117`"QRename this local variable to match the regular expression '^[a-
 r	java:S117r"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ş­úÿÿÿÿ8£Ã”›¾1
 m	java:S117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À°Ü§8£Ã”›¾1
 n	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì€áÍ8£Ã”›¾1
+e
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¸Ä”›¾1
+e
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¼Ä”›¾1
 d
-java:S2095e"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8±Ä”›¾1
+java:S2095H"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8·Ä”›¾1
 d
-java:S2095v"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8³Ä”›¾1
+java:S2095T"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8ºÄ”›¾1
+d
+java:S20957"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¼Ä”›¾1
 d
 java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8µÄ”›¾1
 d
 java:S2095+"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¶Ä”›¾1
 d
-java:S2095H"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8·Ä”›¾1
-e
-java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¸Ä”›¾1
+java:S2095e"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8±Ä”›¾1
 d
-java:S2095T"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8ºÄ”›¾1
-d
-java:S20957"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¼Ä”›¾1
-e
-java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8¼Ä”›¾1
+java:S2095v"GUse try-with-resources or close this "Statement" in a "finally" clause.(£í’á8³Ä”›¾1
 `
 java:S2583"CChange this condition so that it does not always evaluate to "true"(¡ææú8¾Ä”›¾1
 o	java:S100

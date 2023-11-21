@@ -1,23 +1,23 @@
 
 m
-java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(âÒñ”8ùÛÃš¾1
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(âÒñ”8ÌÅ³á¾1
 m
-java:S2095ƒ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ş£§’8øÛÃš¾1
+java:S2095„"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ş£§’8ÌÅ³á¾1
 m
-java:S2095›"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÉµãŒ8÷ÛÃš¾1
+java:S2095œ"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÉµãŒ8ÌÅ³á¾1
 l
-java:S2095p"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(µ™àä8øÛÃš¾1
+java:S2095q"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(µ™àä8ËÅ³á¾1
 r
-java:S2095¥"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ƒ¬İøûÿÿÿÿ8øÛÃš¾1
+java:S2095¦"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ƒ¬İøûÿÿÿÿ8ÌÅ³á¾1
 W
-java:S1144d"5Remove this unused private "createDataSource" method.(¸¿çÕşÿÿÿÿ8†ÜÃš¾1
+java:S1144e"5Remove this unused private "createDataSource" method.(¸¿çÕşÿÿÿÿ8÷Å³á¾1
 R
-java:S1144m"0Remove this unused private "getAllBirds" method.(ÚƒÌÿÿÿÿÿ8†ÜÃš¾1
+java:S1144n"0Remove this unused private "getAllBirds" method.(ÚƒÌÿÿÿÿÿ8÷Å³á¾1
 R
-java:S1144‚"5Remove this unused private "getFilteredBirds" method.(ÑÒ‘K8†ÜÃš¾1
+java:S1144ƒ"5Remove this unused private "getFilteredBirds" method.(ÑÒ‘K8÷Å³á¾1
 M
-java:S1144"/Remove this unused private "insertBird" method.(ÖÇ—“8†ÜÃš¾1
+java:S1144"/Remove this unused private "insertBird" method.(ÖÇ—“8÷Å³á¾1
 R
-java:S1144—"/Remove this unused private "updateBird" method.(§Õç©ıÿÿÿÿ8†ÜÃš¾1
+java:S1144˜"/Remove this unused private "updateBird" method.(§Õç©ıÿÿÿÿ8÷Å³á¾1
 R
-java:S1144£"/Remove this unused private "deleteBird" method.(Æê¢—şÿÿÿÿ8†ÜÃš¾1
+java:S1144¤"/Remove this unused private "deleteBird" method.(Æê¢—şÿÿÿÿ8øÅ³á¾1
