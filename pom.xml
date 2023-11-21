@@ -184,7 +184,7 @@
                                         <manifest>
                                             <addClasspath>true</addClasspath>
                                             <classpathPrefix>dependency-jars/</classpathPrefix>
-                                            <mainClass>com.shpp.App</mainClass>
+                                            <mainClass>com.shpp.AppQuery</mainClass>
                                             <!--addClasspathEntry>config/</addClasspathEntry-->
                                         </manifest>
 
