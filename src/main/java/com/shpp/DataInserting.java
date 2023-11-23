@@ -122,7 +122,6 @@ public class DataInserting {
                                     preparedStatement.executeBatch();
                                     preparedStatement.clearBatch();
                                 }
-
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
                             }

@@ -15,7 +15,7 @@ public class App {
 
     public static void main(String[] args) {
         String categoryName = System.getProperty("category", "Category_3");
-        LOGGER.info("Start program 1024");
+        LOGGER.info("Start program");
         int batchSize = 1000;
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         DataInserting insertDataPreparedStatement = new DataInserting();
