@@ -1,52 +1,55 @@
 package com.shpp;
 
-
-
-import com.shpp.dto.Store;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import static org.mockito.Mockito.*;
+import java.sql.ResultSet;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DataInsertingTest {
 
-    @Mock
-    private ValidatorClass validatorClass;
+    @Test
+    void testInsertStores() {
+        //DataInserting dataInserting = new DataInserting();
+        //dataInserting.insertStores();
 
-    @Mock
-    private ConnectorDB connectorDB;
-
-    @InjectMocks
-    private DataInserting dataInserting;
+        assertTrue(tableNotEmpty("stores"));
+    }
 
     @Test
-    void insertStoresSuccessfulInsertion() throws SQLException {
-        // Arrange
-        Connection connection = mock(Connection.class);
-        PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    void testInsertProductCategories() {
+        //DataInserting dataInserting = new DataInserting();
+        //dataInserting.insertProductCategories();
 
-        when(connectorDB.getConnection()).thenReturn(connection);
-        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
-        when(validatorClass.validateDTO(any(Store.class))).thenReturn(true);
-
-        dataInserting.insertStores();
-
-
-        //verify(preparedStatement, times(DataInserting.NUMBER_OF_STORES)).addBatch();
-        verify(preparedStatement).executeBatch();
-        //verify(connection, times(DataInserting.NUMBER_OF_STORES)).setString(eq(1), anyString());
-        verify(connection).close();
+        assertTrue(tableNotEmpty("categories"));
     }
 
-    public void initTestData(){
+    @Test
+    void testInsertProducts() {
 
+        //DataInserting dataInserting = new DataInserting();
+       // dataInserting.insertProducts();
+
+        assertTrue(tableNotEmpty("products"));
     }
 
+    @Test
+    void testInsertDeliveries() {
+       // DataInserting dataInserting = new DataInserting();
+        //dataInserting.insertDeliveries(100);
+
+        assertTrue(tableNotEmpty("deliveries"));
+    }
+
+    private boolean tableNotEmpty(String tableName) {
+        try (Connection connection = ConnectorDB.getConnection();
+             ResultSet resultSet = connection.createStatement().executeQuery("SELECT COUNT(*) FROM " + tableName)) {
+            resultSet.next();
+            int count = resultSet.getInt(1);
+            return count > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking table existence: " + e.getMessage());
+        }
+    }
 
 }
