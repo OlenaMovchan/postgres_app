@@ -14,11 +14,12 @@ public class App {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
+        String categoryName = System.getProperty("category", "Category_3");
         LOGGER.info("Start program 1024");
         int batchSize = 1000;
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         DataInserting insertDataPreparedStatement = new DataInserting();
-        QueryExecutor queryExecutor = new QueryExecutor("Category_3");
+        QueryExecutor queryExecutor = new QueryExecutor(categoryName);
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
         try {
@@ -49,9 +50,7 @@ public class App {
             stopWatch.stop();
             LOGGER.info("Query time with indexes: " + stopWatch.getTime() + " ms");
         } catch (Exception e) {
-            LOGGER.error("Connection failed...");
-           // LOGGER.error("Error insert data", e.getMessage());
-
+            LOGGER.error("Error", e.getMessage());
         }
     }
 
