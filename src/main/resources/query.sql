@@ -11,7 +11,7 @@ FROM
         JOIN
     stores s ON d.store_id = s.store_id
 WHERE
-        c.category_name = 'Category_435'
+        c.category_name = '?'
 GROUP BY
     c.category_name, s.location
 ORDER BY

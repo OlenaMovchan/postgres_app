@@ -1,9 +1,11 @@
 package com.shpp.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class Store {
     @NotBlank
+    @NotNull
     private String location;
 
     public Store(String location) {

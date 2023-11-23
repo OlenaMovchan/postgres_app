@@ -2,6 +2,7 @@ package com.shpp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,7 +13,7 @@ public class IndexCreator {
     public void createIndex() {
         try (Connection connection = ConnectorDB.getConnection();
              Statement statement = connection.createStatement()) {
-            //primary key auto index???
+
             createIndex(statement, "idx_categories_category_id", "categories", "category_id");
             createIndex(statement, "idx_products_category_id", "products", "category_id");
             createIndex(statement, "idx_deliveries_product_id", "deliveries", "product_id");

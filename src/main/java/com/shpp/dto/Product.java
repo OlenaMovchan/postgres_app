@@ -2,8 +2,12 @@ package com.shpp.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+
 public class Product {
     @NotBlank
+    @NotNull
     private String productName;
     @Min(1)
     @Max(1000)

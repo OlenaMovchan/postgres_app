@@ -18,11 +18,11 @@ public class App {
         int batchSize = 1000;
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         DataInserting insertDataPreparedStatement = new DataInserting();
-        QueryExecutor queryExecutor = new QueryExecutor();
+        QueryExecutor queryExecutor = new QueryExecutor("Category_3");
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
         try {
-            databaseInitializer.createTable();
+            databaseInitializer.createTables();
             stopWatch.start();
             double start = System.currentTimeMillis();
             insertDataPreparedStatement.insertStores();
