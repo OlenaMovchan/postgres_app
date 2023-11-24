@@ -203,7 +203,7 @@
                                         <manifest>
                                             <addClasspath>true</addClasspath>
                                             <classpathPrefix>dependency-jars/</classpathPrefix>
-                                            <mainClass>com.shpp.AppQuery</mainClass>
+                                            <mainClass>com.shpp.App</mainClass>
                                             <!--addClasspathEntry>config/</addClasspathEntry-->
                                         </manifest>
 
