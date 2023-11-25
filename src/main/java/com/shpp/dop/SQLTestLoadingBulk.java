@@ -110,7 +110,7 @@ public class SQLTestLoadingBulk {
         System.out.println("availableProcessor:  " + Runtime.getRuntime().availableProcessors());
         //String insertQuery = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
         String insertQuery = "INSERT INTO store_products (store_id, product_id, quantity)"
-        +"SELECT store_id, product_id, FLOOR(RAND() * 10) + 1 FROM stores CROSS JOIN products";
+        +"SELECT store_id, product_id, random_between(1,1000) FROM stores CROSS JOIN products";
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         System.out.println("start delivery insert ");
         double start = System.currentTimeMillis();
