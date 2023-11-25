@@ -33,7 +33,7 @@ public class DatabaseInitializer {
     }
 
     public String readScriptFile() {
-        try (InputStream inputStream = getClass().getResourceAsStream("/" + SCRIPT_FILE);
+        try (InputStream inputStream = getClass().getResourceAsStream(SCRIPT_FILE);//"/" +
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
             StringBuilder script = new StringBuilder();
