@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 // String insertProductSQL = "INSERT INTO products (product_name, category_id) VALUES (?, ?)";
 //        try (Connection connection = ConnectorDB.getConnection();
@@ -64,7 +65,7 @@ public class SQLTestLoadingBulk {
                 (Connection connection = ConnectorDB.getConnection()) {
 
             // for (String sql : sqlStatements) {
-            for (int i = 0; i < 300; i++) {
+            for (int i = 0; i < 4; i++) {
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeBulkInsert(insertQuery, connection), executorService);
                 futures.add(future);
                 // }
@@ -109,8 +110,7 @@ public class SQLTestLoadingBulk {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         System.out.println("availableProcessor:  " + Runtime.getRuntime().availableProcessors());
         //String insertQuery = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
-        String insertQuery = "INSERT INTO store_products (store_id, product_id, quantity)"
-        +"SELECT store_id, product_id, random_between(1,1000) FROM stores CROSS JOIN products";
+        String insertQuery = "INSERT INTO store_products (store_id, product_id, quantity) VALUES (?, ?, ?)";
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         System.out.println("start delivery insert ");
         double start = System.currentTimeMillis();
@@ -135,7 +135,7 @@ public class SQLTestLoadingBulk {
 
     private static void executeBulkInsert2(String sql, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            connection.setAutoCommit(false);
+            //connection.setAutoCommit(false);
             //for (int i = 0; i < 10000; i++) {
               //  Delivery delivery = new Delivery(faker.number().numberBetween(1, 500000),
                         //faker.number().numberBetween(1, 75),
@@ -148,8 +148,31 @@ public class SQLTestLoadingBulk {
                 //}
             //}
             //statement.executeBatch();
-            statement.executeQuery();
-            connection.commit();
+            //statement.executeQuery();
+            //connection.commit();
+            int numberOfStores = 75;
+            int numberOfProducts = 40000;
+
+            // Insert random quantities for each combination of store and product
+            for (long storeId = 1; storeId <= numberOfStores; storeId++) {
+                for (long productId = 1; productId <= numberOfProducts; productId++) {
+                    int randomQuantity = ThreadLocalRandom.current().nextInt(1, 1000); // Adjust the range as needed
+
+                    statement.setLong(1, storeId);
+                    statement.setLong(2, productId);
+                    statement.setInt(3, randomQuantity);
+
+                    statement.addBatch();
+                    if (productId%1000==0){
+                        statement.executeBatch();
+                    }
+                }
+            }
+
+            // Execute the batch insert
+            statement.executeBatch();
+
+            System.out.println("Data inserted into store_products table successfully.");
         } catch (Exception e) {
             e.printStackTrace();
         }
