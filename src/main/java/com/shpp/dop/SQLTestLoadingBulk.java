@@ -85,6 +85,7 @@ public class SQLTestLoadingBulk {
 
     private static void executeBulkInsert(String sql, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             for (int i = 0; i < 10000; i++) {
                 Product product = new Product(faker.commerce().productName(),
                         faker.number().numberBetween(1, 1000));
@@ -95,6 +96,7 @@ public class SQLTestLoadingBulk {
                 }
             }
             statement.executeBatch();
+            connection.commit();
             //statement.executeUpdate();
             //System.out.println("Bulk insert executed: " + statement);
         } catch (Exception e) {
@@ -132,6 +134,7 @@ public class SQLTestLoadingBulk {
 
     private static void executeBulkInsert2(String sql, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             for (int i = 0; i < 10000; i++) {
                 Delivery delivery = new Delivery(faker.number().numberBetween(1, 500000),
                         faker.number().numberBetween(1, 75),
@@ -144,6 +147,7 @@ public class SQLTestLoadingBulk {
                 }
             }
             statement.executeBatch();
+            connection.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
