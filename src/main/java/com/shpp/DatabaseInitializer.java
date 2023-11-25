@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DatabaseInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseInitializer.class);
-    private static final String SCRIPT_FILE = "createTables.sql";
+    private static final String SCRIPT_FILE = "./createTables.sql";
     private static final String SCRIPT_DELIMITER = ";";
 
     public void createTables() {
