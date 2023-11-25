@@ -167,40 +167,40 @@ public class DataInserting {
     // Constants
     private static final int NUMBER_OF_THREADS = 4; // Adjust as needed
 
-    public void insertDeliveries() {
-        //AtomicInteger integer = new AtomicInteger(1);
-        String insertProductSQL = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
-        try (Connection connection = ConnectorDB.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
-            int count = 1;
-            Stream.generate(() -> new Delivery(faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
-                            faker.number().numberBetween(1, NUMBER_OF_STORES),
-                            faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
-                    .limit(NUMBER_OF_PRODUCT_NAMES)
-
-                    .forEach(delivery -> {
-                        if (validator.validateDTO(delivery)) {
-                            try {
-                                preparedStatement.setInt(1, delivery.getProductId());
-                                preparedStatement.setInt(2, delivery.getStoreId());
-                                preparedStatement.setInt(3, delivery.getProductCount());
-                                preparedStatement.addBatch();
-                                //count++;
-                                //if ( %1000 == 0){
-                                    preparedStatement.executeBatch();
-                                    //preparedStatement.clearBatch();
-                              //  }
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    });
-            //preparedStatement.executeBatch();
-            LOGGER.info("Insertion of data by deliveries is successful");
-        } catch (SQLException e) {
-            LOGGER.error("Error inserting deliveries", e.getMessage());
-        }
-    }
+//    public void insertDeliveries() {
+//        //AtomicInteger integer = new AtomicInteger(1);
+//        String insertProductSQL = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
+//        try (Connection connection = ConnectorDB.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(insertProductSQL)) {
+//            int count = 1;
+//            Stream.generate(() -> new Delivery(faker.number().numberBetween(1, NUMBER_OF_PRODUCT_NAMES),
+//                            faker.number().numberBetween(1, NUMBER_OF_STORES),
+//                            faker.number().numberBetween(1, NUMBER_OF_CATEGORIES)))
+//                    .limit(NUMBER_OF_PRODUCT_NAMES)
+//
+//                    .forEach(delivery -> {
+//                        if (validator.validateDTO(delivery)) {
+//                            try {
+//                                preparedStatement.setInt(1, delivery.getProductId());
+//                                preparedStatement.setInt(2, delivery.getStoreId());
+//                                preparedStatement.setInt(3, delivery.getProductCount());
+//                                preparedStatement.addBatch();
+//                                //count++;
+//                                //if ( %1000 == 0){
+//                                    preparedStatement.executeBatch();
+//                                    //preparedStatement.clearBatch();
+//                              //  }
+//                            } catch (SQLException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }
+//                    });
+//            //preparedStatement.executeBatch();
+//            LOGGER.info("Insertion of data by deliveries is successful");
+//        } catch (SQLException e) {
+//            LOGGER.error("Error inserting deliveries", e.getMessage());
+//        }
+//    }
 }
 
 
