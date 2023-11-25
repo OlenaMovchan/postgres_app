@@ -39,8 +39,8 @@ public class QueryExecutor {
     }
 
     public String loadQueryFromFile() {
-        try (InputStream inputStream = getClass().getResourceAsStream(QUERY_FILE);//"/" +
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (FileInputStream file = new FileInputStream(QUERY_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(QUERY_FILE);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder query = new StringBuilder();
             String line;

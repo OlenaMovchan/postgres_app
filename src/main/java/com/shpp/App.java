@@ -30,7 +30,8 @@ public class App {
         //insertDataPreparedStatement.insertProducts();
         SQLTestLoadingBulk sqlTestLoadingBulk = new SQLTestLoadingBulk();
         sqlTestLoadingBulk.insertData();
-        insertDataPreparedStatement.insertDeliveries();
+        sqlTestLoadingBulk.insertData2();
+        //insertDataPreparedStatement.insertDeliveries();
         LOGGER.info("Data generation completed");
 
         stopWatch.stop();
