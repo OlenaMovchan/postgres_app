@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DatabaseInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseInitializer.class);
-    private static final String SCRIPT_FILE = "./createTables.sql";
+    private static final String SCRIPT_FILE = "createTables.sql";
     private static final String SCRIPT_DELIMITER = ";";
 
     public void createTables() {
@@ -33,8 +33,8 @@ public class DatabaseInitializer {
     }
 
     public String readScriptFile() {
-        try (InputStream inputStream = getClass().getResourceAsStream(SCRIPT_FILE);//"/" +
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (FileInputStream file = new FileInputStream(SCRIPT_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(SCRIPT_FILE)
+             BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder script = new StringBuilder();
             String line;
@@ -43,7 +43,7 @@ public class DatabaseInitializer {
             }
             return script.toString();
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             LOGGER.error("Error reading script file", e);
             return "";
         }
