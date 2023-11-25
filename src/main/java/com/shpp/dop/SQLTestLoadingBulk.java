@@ -59,7 +59,7 @@ static Faker faker = new Faker(new Locale("uk"));
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         try
                 (Connection connection = ConnectorDB.getConnection()) {
-            try {
+
                 // Execute each SQL statement asynchronously
                 // for (String sql : sqlStatements) {
                 for (int i = 0; i < 3000; i++) {
@@ -76,10 +76,7 @@ static Faker faker = new Faker(new Locale("uk"));
                 executorService.shutdown();
 
             }
-        }catch (Exception e){
-            e.printStackTrace();
 
-        }
 
         System.out.println("end");
         double end = System.currentTimeMillis();

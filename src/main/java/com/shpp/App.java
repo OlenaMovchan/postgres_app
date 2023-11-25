@@ -71,3 +71,26 @@ public class App {
 //(Товар INNER JOIN Угода
 //ON Товар.КодТовара = Угода.КодТовара)
 //ON Клієнт.КодКлієнта = Угода.КодК
+
+//	@Override
+//	public void run(ApplicationArguments args) throws Exception {
+//		logger.debug("Populating the database with 20K Dummy Records ... In Progress");
+//		List<Student> students = new ArrayList<>();
+//
+//		IntStream.range(1,20000).forEach(id -> {
+//			Student student = new Student();
+//			student.setFirstName("f" + id);
+//			student.setLastName("l" + id);
+//			student.setEmail("email@" + id + "email.com");
+//
+//			int randomClass = ThreadLocalRandom.current().nextInt(1, 12 + 1);
+//
+//			student.setKlass(randomClass);
+//
+//			students.add(student);
+//		});
+//
+//		studentService.saveAll(students);
+//
+//		logger.debug("Database filled up!");
+//	}

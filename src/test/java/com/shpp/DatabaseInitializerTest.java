@@ -1,4 +1,5 @@
 package com.shpp;
+import org.h2.engine.Database;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ public class DatabaseInitializerTest {
 
     @BeforeEach
     void setup() {
-
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         ConnectorDB.setDataSource(dataSource, "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
