@@ -133,7 +133,7 @@ public class SQLTestLoadingBulk {
     private static void executeBulkInsert2(String sql, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (int i = 0; i < 10000; i++) {
-                Delivery delivery = new Delivery(faker.number().numberBetween(1, 3000000),
+                Delivery delivery = new Delivery(faker.number().numberBetween(1, 500000),
                         faker.number().numberBetween(1, 75),
                         faker.number().numberBetween(1, 1000));
                 if (validatorClass.validateDTO(delivery)) {
