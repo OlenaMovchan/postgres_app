@@ -108,18 +108,19 @@ public class SQLTestLoadingBulk {
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         System.out.println("availableProcessor:  " + Runtime.getRuntime().availableProcessors());
-        String insertQuery = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
-
+        //String insertQuery = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO store_products (store_id, product_id, quantity)"
+        +"SELECT store_id, product_id, FLOOR(RAND() * 10) + 1 FROM stores CROSS JOIN products";
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         System.out.println("start delivery insert ");
         double start = System.currentTimeMillis();
         try
                 (Connection connection = ConnectorDB.getConnection()) {
-            for (int i = 0; i < 300; i++) {
+           // for (int i = 0; i < 300; i++) {
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeBulkInsert2(insertQuery, connection), executorService);
                 futures.add(future);
 
-            }
+           // }
             CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,18 +136,19 @@ public class SQLTestLoadingBulk {
     private static void executeBulkInsert2(String sql, Connection connection) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
-            for (int i = 0; i < 10000; i++) {
-                Delivery delivery = new Delivery(faker.number().numberBetween(1, 500000),
-                        faker.number().numberBetween(1, 75),
-                        faker.number().numberBetween(1, 1000));
-                if (validatorClass.validateDTO(delivery)) {
-                    statement.setInt(1, delivery.getProductId());
-                    statement.setInt(2, delivery.getStoreId());
-                    statement.setInt(3, delivery.getProductCount());
-                    statement.addBatch();
-                }
-            }
-            statement.executeBatch();
+            //for (int i = 0; i < 10000; i++) {
+              //  Delivery delivery = new Delivery(faker.number().numberBetween(1, 500000),
+                        //faker.number().numberBetween(1, 75),
+                        //faker.number().numberBetween(1, 1000));
+                //if (validatorClass.validateDTO(delivery)) {
+                   // statement.setInt(1, delivery.getProductId());
+                    //statement.setInt(2, delivery.getStoreId());
+                   // statement.setInt(3, delivery.getProductCount());
+                   // statement.addBatch();
+                //}
+            //}
+            //statement.executeBatch();
+            statement.executeQuery();
             connection.commit();
         } catch (Exception e) {
             e.printStackTrace();

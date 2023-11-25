@@ -16,8 +16,9 @@ public class IndexCreator {
 
             createIndex(statement, "idx_categories_category_id", "categories", "category_id");
             createIndex(statement, "idx_products_category_id", "products", "category_id");
-            createIndex(statement, "idx_deliveries_product_id", "deliveries", "product_id");
-            createIndex(statement, "idx_deliveries_store_id", "deliveries", "store_id");
+            createIndex(statement, "idx_deliveries_store_id", "store_products", "store_id");
+            createIndex(statement, "idx_deliveries_product_id", "store_products", "product_id");
+
             createIndex(statement, "idx_stores_store_id", "stores", "store_id");
 
             LOGGER.info("Indexes created successfully");

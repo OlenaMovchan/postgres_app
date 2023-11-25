@@ -21,11 +21,20 @@ CREATE TABLE products
     category_id  BIGINT,
     FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
-CREATE TABLE deliveries
+--CREATE TABLE deliveries
+--(
+   -- product_id    BIGINT,
+   -- store_id      BIGINT,
+  --  product_count INTEGER NOT NULL,
+   -- FOREIGN KEY (product_id) REFERENCES products (product_id),
+    --FOREIGN KEY (store_id) REFERENCES stores (store_id)
+--);
+CREATE TABLE store_products
 (
-    product_id    BIGINT,
-    store_id      BIGINT,
-    product_count INTEGER NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES products (product_id),
-    FOREIGN KEY (store_id) REFERENCES stores (store_id)
+    store_id   BIGINT,
+    product_id BIGINT,
+    quantity   INT,
+    PRIMARY KEY (store_id, product_id),
+    FOREIGN KEY (store_id) REFERENCES stores (store_id),
+    FOREIGN KEY (product_id) REFERENCES products (product_id)
 );
