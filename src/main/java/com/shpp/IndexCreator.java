@@ -14,7 +14,7 @@ public class IndexCreator {
         try (Connection connection = ConnectorDB.getConnection();
              Statement statement = connection.createStatement()) {
 
-            //createIndex(statement, "idx_categories_category_id", "categories", "category_id");
+            createIndex(statement, "idx_categories_category_id", "categories", "category_id");
             createIndex(statement, "idx_categories_category_id", "categories", "category_name");
 
             createIndex(statement, "idx_products_category_id", "products", "category_id");
