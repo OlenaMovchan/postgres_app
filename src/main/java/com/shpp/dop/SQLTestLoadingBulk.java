@@ -159,20 +159,22 @@ public class SQLTestLoadingBulk {
             int numberOfProducts = 40000;
 
             // Insert random quantities for each combination of store and product
-            for (long storeId = 1; storeId <= numberOfStores; storeId++) {
-                for (long productId = 1; productId <= numberOfProducts; productId++) {
+            for (int storeId = 1; storeId <= numberOfStores; storeId++) {
+                for (int productId = 1; productId <= numberOfProducts; productId++) {
                     int randomQuantity = ThreadLocalRandom.current().nextInt(1, 1000); // Adjust the range as needed
-
-                    statement.setLong(1, storeId);
-                    statement.setLong(2, productId);
-                    statement.setInt(3, randomQuantity);
+                   Delivery delivery = new Delivery(productId, storeId, randomQuantity);
+                    if (validatorClass.validateDTO(delivery)) {
+                    statement.setInt(1, delivery.getProductId());
+                    statement.setInt(2, delivery.getStoreId());
+                    statement.setInt(3, delivery.getProductCount());
 
                     statement.addBatch();
+                    }
                     if (productId%1000==0){
                         statement.executeBatch();
                     }
                 }
-                LOGGER.info("Insertion of product data {} for the {} store is successful", numberOfStores, storeId);
+                LOGGER.info("Insertion of product data {} for the {} store is successful", numberOfProducts, storeId);
             }
 
             // Execute the batch insert
