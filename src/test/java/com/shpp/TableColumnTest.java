@@ -36,11 +36,11 @@ public class TableColumnTest {
 
     @Test
     void testTableDeliveriesColumns() {
-        String tableName = "deliveries";
+        String tableName = "store_products";
         Set<String> expectedColumns = Set.of(
-                "product_id",
                 "store_id",
-                "product_count"
+                "product_id",
+                "quantity"
 
         );
 

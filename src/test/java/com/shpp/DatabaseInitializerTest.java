@@ -29,7 +29,7 @@ public class DatabaseInitializerTest {
                 () -> assertTrue(tableExists("categories")),
                 () -> assertTrue(tableExists("stores")),
                 () -> assertTrue(tableExists("products")),
-                () -> assertTrue(tableExists("deliveries"))
+                () -> assertTrue(tableExists("store_products"))
         );
     }
 

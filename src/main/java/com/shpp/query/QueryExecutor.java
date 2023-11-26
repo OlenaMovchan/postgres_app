@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class QueryExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QueryExecutor.class);
-    private static final String QUERY_FILE = "src/main/resources/query.sql";
+    private static final String QUERY_FILE = "query.sql";
     private final String categoryName;
 
     public QueryExecutor(String categoryName) {
