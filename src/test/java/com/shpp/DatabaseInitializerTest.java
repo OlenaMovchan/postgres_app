@@ -1,4 +1,5 @@
 package com.shpp;
+
 import org.h2.engine.Database;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
@@ -13,33 +14,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseInitializerTest {
 
-    @BeforeEach
-    void setup() {
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
-        ConnectorDB.setDataSource(dataSource, "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
-    }
-
     @Test
     void testCreateTables() {
-        //DatabaseInitializer initializer = new DatabaseInitializer();
+        DatabaseInitializer initializer = new DatabaseInitializer();
+        initializer.createTables("DROP TABLE IF EXISTS storestest CASCADE");
+        initializer.createTables("DROP TABLE IF EXISTS categoriestest CASCADE");
 
-        //initializer.createTables();
+        initializer.createTables("CREATE TABLE storesTest ("
+                + "store_id SERIAL PRIMARY KEY,"
+                + "location VARCHAR(255))");
+        initializer.createTables("CREATE TABLE categoriesTest ("
+                + "category_id SERIAL PRIMARY KEY,"
+                + "category_name VARCHAR(255) NOT NULL)");
 
-        assertAll(
-                () -> assertTrue(tableExists("categories")),
-                () -> assertTrue(tableExists("stores")),
-                () -> assertTrue(tableExists("products")),
-                () -> assertTrue(tableExists("store_products"))
-        );
+        assertTrue(tableExists("categoriestest"));
+        assertTrue(tableExists("storestest"));
+
     }
 
     @Test
     void testCreateFalseTable() {
-        //DatabaseInitializer initializer = new DatabaseInitializer();
-
-       // initializer.createTables();
-
+        DatabaseInitializer initializer = new DatabaseInitializer();
+        initializer.createTables("DROP TABLE IF EXISTS storesTest CASCADE");
+        initializer.createTables("CREATE TABLE storesTest ("
+                + "store_id SERIAL PRIMARY KEY,"
+                + "location VARCHAR(255))");
         assertAll(
                 () -> assertFalse(tableExists("bad_categories")),
                 () -> assertFalse(tableExists("bad_stores")),

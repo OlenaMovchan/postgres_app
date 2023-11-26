@@ -10,11 +10,11 @@ public class DatabaseInitializer {
     private static final String SCRIPT_FILE = "createTables.sql";
     private static final String SCRIPT_DELIMITER = ";";
 
-    public void createTables() {
+    public void createTables(String script) {
         try (Connection connection = ConnectorDB.getConnection();
              Statement statement = connection.createStatement()) {
 connection.setAutoCommit(false);
-            executeScript(statement, readScriptFile());
+            executeScript(statement, script);
 connection.commit();
             LOGGER.info("Tables created successfully");
 

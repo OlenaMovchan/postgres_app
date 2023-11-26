@@ -10,35 +10,18 @@ class DataInsertingTest {
 
     @Test
     void testInsertStores() {
-        //DataInserting dataInserting = new DataInserting();
-        //dataInserting.insertStores();
+        DataInserting dataInserting = new DataInserting();
+        dataInserting.insertStores();
 
-        //assertTrue(tableNotEmpty("stores"));
+        assertTrue(tableNotEmpty("stores"));
     }
 
     @Test
     void testInsertProductCategories() {
-        //DataInserting dataInserting = new DataInserting();
-        //dataInserting.insertProductCategories();
+        DataInserting dataInserting = new DataInserting();
+        dataInserting.insertProductCategories();
 
-        //assertTrue(tableNotEmpty("categories"));
-    }
-
-    @Test
-    void testInsertProducts() {
-
-        //DataInserting dataInserting = new DataInserting();
-       // dataInserting.insertProducts();
-
-        //assertTrue(tableNotEmpty("products"));
-    }
-
-    @Test
-    void testInsertDeliveries() {
-       // DataInserting dataInserting = new DataInserting();
-        //dataInserting.insertDeliveries(100);
-
-        //assertTrue(tableNotEmpty("deliveries"));
+        assertTrue(tableNotEmpty("categories"));
     }
 
     private boolean tableNotEmpty(String tableName) {

@@ -13,15 +13,15 @@ public class IndexCreatorTest {
 
     @Test
     void testCreateIndexes() {
-        //IndexCreator indexCreator = new IndexCreator();
-        //indexCreator.createIndex();
+        IndexCreator indexCreator = new IndexCreator();
+        indexCreator.createIndex();
 
         String expectedIndexes = "idx_stores_store_id";
 
         try (Connection connection = ConnectorDB.getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
 
-            //assertTrue(indexExists(metaData, expectedIndexes), "Index " + expectedIndexes + " not found");
+            assertTrue(indexExists(metaData, expectedIndexes), "Index " + expectedIndexes + " not found");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +41,3 @@ public class IndexCreatorTest {
     }
 }
 
-// "idx_categories_category_id",
-//                "idx_products_category_id",
-//                "idx_deliveries_product_id",
-//                "idx_deliveries_store_id",
