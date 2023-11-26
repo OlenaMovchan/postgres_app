@@ -31,6 +31,7 @@ public class QueryExecutor {
         }
         if (result != null) {
             //LOGGER.info("Category name: " + result.getCategoryName());
+            LOGGER.info("Category name: " + System.getProperty("category", "Дім"));
             LOGGER.info("Store location: " + result.getStoreLocation());
             LOGGER.info("Total products: " + result.getTotalProducts());
         } else {
