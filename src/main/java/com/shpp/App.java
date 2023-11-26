@@ -15,7 +15,7 @@ public class App {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        String categoryName = System.getProperty("category", "Category_3");
+        String categoryName = System.getProperty("category", "Дім");
         LOGGER.info("Start program");
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         DataInserting insertDataPreparedStatement = new DataInserting();
