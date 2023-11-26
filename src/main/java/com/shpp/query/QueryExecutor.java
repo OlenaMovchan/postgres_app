@@ -30,7 +30,7 @@ public class QueryExecutor {
             throw new RuntimeException(e);
         }
         if (result != null) {
-            LOGGER.info("Category name: " + result.getCategoryName());
+            //LOGGER.info("Category name: " + result.getCategoryName());
             LOGGER.info("Store location: " + result.getStoreLocation());
             LOGGER.info("Total products: " + result.getTotalProducts());
         } else {
@@ -60,10 +60,10 @@ public class QueryExecutor {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    String category = resultSet.getString("category_name");
+                    //String category = resultSet.getString("category_name");
                     String storeLocation = resultSet.getString("store_location");
                     int totalProducts = resultSet.getInt("total_products");
-                    return new QueryResult(category, storeLocation, totalProducts);
+                    return new QueryResult(storeLocation, totalProducts);//category,
                 }
             }
         }
