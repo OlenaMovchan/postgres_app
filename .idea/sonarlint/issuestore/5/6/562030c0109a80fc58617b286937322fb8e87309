@@ -1,8 +1,8 @@
 
-M
-java:S1481¯"*Remove this unused "count" local variable.(šüñÔøÿÿÿÿ8Ú¬ÚŒÀ1
 ^
 java:S1128"<Remove this unused import 'com.shpp.dop.SQLTestLoadingBulk'.(äû‹úÿÿÿÿÿ8‡µŞŒÀ1
+T
+java:S1128"2Remove this unused import 'com.shpp.dto.Delivery'.(Ş§õ•ùÿÿÿÿ8—¨ò°À1
 S
 java:S1128"1Remove this unused import 'com.shpp.dto.Product'.(ÛÎ®»şÿÿÿÿ8Û¬ÚŒÀ1
 c
@@ -15,5 +15,7 @@ h
 java:S1128"FRemove this unused import 'java.util.concurrent.atomic.AtomicInteger'.(¿êäœøÿÿÿÿ8Ü¬ÚŒÀ1
 Y
 java:S1128"7Remove this unused import 'java.util.stream.IntStream'.(ÙÉ½Ÿùÿÿÿÿ8Ü¬ÚŒÀ1
+X
+java:S1068";Remove this unused "NUMBER_OF_PRODUCT_NAMES" private field.(Í‹âÊ8¨ò°À1
 X
 java:S1068¨"5Remove this unused "NUMBER_OF_THREADS" private field.(¢¬Ìÿÿÿÿÿ8İ¬ÚŒÀ1

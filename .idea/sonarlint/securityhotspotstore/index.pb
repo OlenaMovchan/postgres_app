@@ -59,3 +59,9 @@ c
 +src/test/java/com/shpp/TableColumnTest.java,1\6\16d1ae67b7323501e042e18ed4b518eec6f5c791
 D
 src/assembly/zip.xml,4\4\442721b68096c1d6d97c5e6b07abc24ac8a1d0d4
+C
+hs_err_pid15448.log,0\b\0b1e9607e3abe321529c6cd290e2804fc0ae5b6b
+P
+ src/main/java/com/shpp/query.sql,6\0\605da8691d0e7228fd91a438b56338bfd37a0a4b
+W
+'src/main/java/com/shpp/createTables.sql,b\a\baa013432f8c6f64e95f279c5946960703caba7e
