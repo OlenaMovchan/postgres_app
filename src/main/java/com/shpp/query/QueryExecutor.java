@@ -26,6 +26,7 @@ public class QueryExecutor {
         QueryResult result;
         try {
             result = executeQuery(sql);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

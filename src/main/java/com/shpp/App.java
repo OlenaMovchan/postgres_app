@@ -1,12 +1,7 @@
 package com.shpp;
 
-import java.sql.*;
-import javax.sql.DataSource;
-
-import com.shpp.dop.SQLTestLoadingBulk;
 import com.shpp.query.QueryExecutor;
 import org.apache.commons.lang3.time.StopWatch;
-import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,15 +17,15 @@ public class App {
         QueryExecutor queryExecutor = new QueryExecutor(categoryName);
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
-
-        databaseInitializer.createTables();
+String script = databaseInitializer.readScriptFile();
+        databaseInitializer.createTables(script);
         stopWatch.start();
         insertDataPreparedStatement.insertStores();
         insertDataPreparedStatement.insertProductCategories();
         //insertDataPreparedStatement.insertProducts();
-        SQLTestLoadingBulk sqlTestLoadingBulk = new SQLTestLoadingBulk();
-        sqlTestLoadingBulk.insertData();
-        sqlTestLoadingBulk.insertData2();
+
+        insertDataPreparedStatement.insertProducts("products");
+        insertDataPreparedStatement.insertStoreProducts();
         //insertDataPreparedStatement.insertDeliveries();
         LOGGER.info("Data generation completed");
 

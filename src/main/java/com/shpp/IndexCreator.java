@@ -26,7 +26,7 @@ public class IndexCreator {
             LOGGER.info("Indexes created successfully");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error creating");e.printStackTrace();
         }
     }
 
