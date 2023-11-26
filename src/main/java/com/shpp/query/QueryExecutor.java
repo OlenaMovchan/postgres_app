@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class QueryExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QueryExecutor.class);
-    private static final String QUERY_FILE = "query.sql";
+    private static final String QUERY_FILE = "src/main/resources/query.sql";
     private final String categoryName;
 
     public QueryExecutor(String categoryName) {
@@ -39,9 +39,7 @@ public class QueryExecutor {
     }
 
     public String loadQueryFromFile() {
-        //ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        try (FileInputStream file = new FileInputStream(QUERY_FILE);//InputStream file = classLoader.getResourceAsStream(QUERY_FILE)
-
+        try (FileInputStream file = new FileInputStream(QUERY_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(QUERY_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder query = new StringBuilder();

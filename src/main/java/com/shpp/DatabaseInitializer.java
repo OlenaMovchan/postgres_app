@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.sql.*;
-import java.util.Objects;
 
 public class DatabaseInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseInitializer.class);
@@ -34,8 +33,7 @@ public class DatabaseInitializer {
     }
 
     public String readScriptFile() {
-
-        try (FileInputStream file = new FileInputStream(SCRIPT_FILE);
+        try (FileInputStream file = new FileInputStream(SCRIPT_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(SCRIPT_FILE)
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder script = new StringBuilder();
