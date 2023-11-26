@@ -1,6 +1,7 @@
 package com.shpp;
 import org.h2.engine.Database;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ public class DatabaseInitializerTest {
     void testCreateFalseTable() {
         //DatabaseInitializer initializer = new DatabaseInitializer();
 
-        //initializer.createTables();
+       // initializer.createTables();
 
         assertAll(
                 () -> assertFalse(tableExists("bad_categories")),

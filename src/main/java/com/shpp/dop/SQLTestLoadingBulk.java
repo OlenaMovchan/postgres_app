@@ -1,10 +1,13 @@
 package com.shpp.dop;
 
 import com.github.javafaker.Faker;
+import com.shpp.App;
 import com.shpp.ConnectorDB;
 import com.shpp.ValidatorClass;
 import com.shpp.dto.Delivery;
 import com.shpp.dto.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
 //            }
 //            preparedStatement.executeBatch();
 public class SQLTestLoadingBulk {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SQLTestLoadingBulk.class);
     static ValidatorClass validatorClass = new ValidatorClass();
     static Faker faker = new Faker(new Locale("uk"));
 
@@ -97,6 +101,7 @@ public class SQLTestLoadingBulk {
                 }
             }
             statement.executeBatch();
+            LOGGER.info("Insertion of 10000 product data is successful");
             connection.commit();
             //statement.executeUpdate();
             //System.out.println("Bulk insert executed: " + statement);
@@ -167,6 +172,7 @@ public class SQLTestLoadingBulk {
                         statement.executeBatch();
                     }
                 }
+                LOGGER.info("Insertion of product data {} for the {} store is successful", numberOfStores, storeId);
             }
 
             // Execute the batch insert
@@ -178,23 +184,3 @@ public class SQLTestLoadingBulk {
         }
     }
 }
-//public void save(List<Entity> entities) throws SQLException {
-//    try (
-//        Connection connection = database.getConnection();
-//        PreparedStatement statement = connection.prepareStatement(SQL_INSERT);
-//    ) {
-//        int i = 0;
-//
-//        for (Entity entity : entities) {
-//            statement.setString(1, entity.getSomeProperty());
-//            // ...
-//
-//            statement.addBatch();
-//            i++;
-//
-//            if (i % 1000 == 0 || i == entities.size()) {
-//                statement.executeBatch(); // Execute every 1000 items.
-//            }
-//        }
-//    }
-//}

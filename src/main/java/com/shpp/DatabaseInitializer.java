@@ -13,9 +13,9 @@ public class DatabaseInitializer {
     public void createTables() {
         try (Connection connection = ConnectorDB.getConnection();
              Statement statement = connection.createStatement()) {
-
+connection.setAutoCommit(false);
             executeScript(statement, readScriptFile());
-
+connection.commit();
             LOGGER.info("Tables created successfully");
 
         } catch (SQLException e) {

@@ -2,13 +2,14 @@ package com.shpp;
 
 import org.junit.jupiter.api.Test;
 import java.sql.Connection;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConnectorDBTest {
 
     @Test
     public void testGetProperties() {
+
         LoadingProperties properties = new LoadingProperties();
         assertNotNull(properties);
 
@@ -22,6 +23,7 @@ public class ConnectorDBTest {
         Connection connection = ConnectorDB.getConnection();
 
         assertNotNull(connection);
+        assertFalse(connection.isClosed());
     }
 
     @Test
