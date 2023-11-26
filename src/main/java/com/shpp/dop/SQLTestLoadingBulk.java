@@ -164,8 +164,8 @@ public class SQLTestLoadingBulk {
                     int randomQuantity = ThreadLocalRandom.current().nextInt(1, 1000); // Adjust the range as needed
                    Delivery delivery = new Delivery(productId, storeId, randomQuantity);
                     if (validatorClass.validateDTO(delivery)) {
-                    statement.setInt(1, delivery.getProductId());
-                    statement.setInt(2, delivery.getStoreId());
+                    statement.setInt(1, delivery.getStoreId());//1-store
+                    statement.setInt(2, delivery.getProductId());
                     statement.setInt(3, delivery.getProductCount());
 
                     statement.addBatch();
