@@ -117,7 +117,7 @@ public class SQLTestLoadingBulk {
         //String insertQuery = "INSERT INTO deliveries (product_id, store_id, product_count) VALUES (?, ?, ?)";
         String insertQuery = "INSERT INTO store_products (store_id, product_id, quantity) VALUES (?, ?, ?)";
         List<CompletableFuture<Void>> futures = new ArrayList<>();
-        System.out.println("start delivery insert ");
+        System.out.println("start inserting data into the table store_products");
         double start = System.currentTimeMillis();
         try
                 (Connection connection = ConnectorDB.getConnection()) {
@@ -132,10 +132,11 @@ public class SQLTestLoadingBulk {
         } finally {
             executorService.shutdown();
         }
-        System.out.println("end delivery insert");
+        System.out.println("end inserting data into the table store_products");
         double end = System.currentTimeMillis();
         double res = end - start;
         System.out.println("time " + res / 1000 + "s");
+        LOGGER.info("The speed of data insertion per second: {}", 3000000/(res/1000));
     }
 
     private static void executeBulkInsert2(String sql, Connection connection) {
@@ -162,14 +163,14 @@ public class SQLTestLoadingBulk {
             for (int storeId = 1; storeId <= numberOfStores; storeId++) {
                 for (int productId = 1; productId <= numberOfProducts; productId++) {
                     int randomQuantity = ThreadLocalRandom.current().nextInt(1, 1000); // Adjust the range as needed
-                   Delivery delivery = new Delivery(productId, storeId, randomQuantity);
-                    if (validatorClass.validateDTO(delivery)) {
-                    statement.setInt(1, delivery.getStoreId());//1-store
-                    statement.setInt(2, delivery.getProductId());
-                    statement.setInt(3, delivery.getProductCount());
+                  // Delivery delivery = new Delivery(productId, storeId, randomQuantity);
+                    //if (validatorClass.validateDTO(delivery)) {
+                    statement.setInt(1, storeId);//1-storedelivery.getStoreId()
+                    statement.setInt(2, productId);
+                    statement.setInt(3, randomQuantity);
 
                     statement.addBatch();
-                    }
+                    //}
                     if (productId%1000==0){
                         statement.executeBatch();
                     }
