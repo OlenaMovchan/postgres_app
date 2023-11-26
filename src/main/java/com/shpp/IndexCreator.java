@@ -15,7 +15,7 @@ public class IndexCreator {
              Statement statement = connection.createStatement()) {
 
             createIndex(statement, "idx_categories_category_id", "categories", "category_id");
-            createIndex(statement, "idx_categories_category_id", "categories", "category_name");
+            createIndex(statement, "idx_categories_category_name", "categories", "category_name");
 
             createIndex(statement, "idx_products_category_id", "products", "category_id");
             createIndex(statement, "idx_store_products_store_id", "store_products", "store_id");
