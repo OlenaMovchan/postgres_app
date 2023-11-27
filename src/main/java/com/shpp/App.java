@@ -5,7 +5,7 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//commit?
+
 public class App {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
@@ -17,16 +17,15 @@ public class App {
         QueryExecutor queryExecutor = new QueryExecutor(categoryName);
         IndexCreator indexCreator = new IndexCreator();
         StopWatch stopWatch = new StopWatch();
-String script = databaseInitializer.readScriptFile();
+        String script = databaseInitializer.readScriptFile();
         databaseInitializer.createTables(script);
+
         stopWatch.start();
         insertDataPreparedStatement.insertStores();
         insertDataPreparedStatement.insertProductCategories();
-        //insertDataPreparedStatement.insertProducts();
-
         insertDataPreparedStatement.insertProducts("products");
         insertDataPreparedStatement.insertStoreProducts();
-        //insertDataPreparedStatement.insertDeliveries();
+
         LOGGER.info("Data generation completed");
 
         stopWatch.stop();

@@ -18,6 +18,11 @@ public class IndexCreator {
             createIndex(statement, "idx_categories_category_name", "categories", "category_name");
 
             createIndex(statement, "idx_products_category_id", "products", "category_id");
+
+            createIndex(statement, "idx_store_quantity", "store_products", "store_id, quantity");
+            createIndex(statement, "idx_product_quantity", "store_products", "product_id, quantity");
+
+
             createIndex(statement, "idx_store_products_store_id", "store_products", "store_id");
             createIndex(statement, "idx_store_products_product_id", "store_products", "product_id");
 
@@ -26,7 +31,7 @@ public class IndexCreator {
             LOGGER.info("Indexes created successfully");
 
         } catch (SQLException e) {
-            LOGGER.error("Error creating");e.printStackTrace();
+            LOGGER.error("Error creating", e.getMessage());
         }
     }
 

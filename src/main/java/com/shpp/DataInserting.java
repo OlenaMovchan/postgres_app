@@ -87,7 +87,7 @@ public class DataInserting {
             }
             CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error ", e.getMessage());
         } finally {
             executorService.shutdown();
         }
@@ -135,9 +135,9 @@ public class DataInserting {
         }
         LOGGER.info("end inserting data into the table store_products");
         double end = System.currentTimeMillis();
-        double res = end - start;
-        LOGGER.info("time " + res / 1000 + "s");
-        LOGGER.info("The speed of data insertion per second: {}", NUMBER_OF_PRODUCT_NAMES / (res / 1000));
+        double res = (end - start)/1000;
+        LOGGER.info("time " + res + "s");
+        LOGGER.info("The speed of data insertion per second: {}", 3000000 / res);//TODO prop
     }
 
     public void executeInsertStoreProducts(String sql, Connection connection) {
