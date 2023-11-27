@@ -1,12 +1,38 @@
 package com.shpp;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
 import java.sql.Connection;
+import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConnectorDBTest {
-
+//    @InjectMocks
+//    private ConnectorDB connectorDB;
+//    @Mock private Connection mockConnection;
+//    @Mock
+//    private Statement mockStatement;
+//
+//    @Before
+//    public void setUp() {
+//        MockitoAnnotations.initMocks(this);
+//    }
+//
+//    @Test
+//    public void testMockDBConnection() throws Exception {
+//        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+//        //Mockito.when(mockConnection.createStatement().executeUpdate(Mockito.any())).thenReturn(1);
+//        //int value = connectorDB.executeQuery("");
+//        //Assert.assertEquals(value, 1);
+//        Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
+//    }
     @Test
     public void testGetProperties() {
 
@@ -33,5 +59,7 @@ public class ConnectorDBTest {
 
         assertEquals("jdbc:postgresql://database-1.cthx9ogfzrzo.eu-central-1.rds.amazonaws.com:5432/postgres", dbUrl);
     }
+
+
 
 }

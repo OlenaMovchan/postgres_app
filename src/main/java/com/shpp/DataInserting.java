@@ -81,7 +81,7 @@ public class DataInserting {
         double start = System.currentTimeMillis();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         try (Connection connection = ConnectorDB.getConnection()) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 10; i++) {
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeInsertProducts(insertQuery, connection), executorService);
                 futures.add(future);
             }
@@ -125,8 +125,11 @@ public class DataInserting {
         LOGGER.info("start inserting data into the table store_products");
         double start = System.currentTimeMillis();
         try (Connection connection = ConnectorDB.getConnection()) {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeInsertStoreProducts(insertQuery, connection), executorService);
-            futures.add(future);
+            for (int storeId = 1; storeId <= NUMBER_OF_STORES; storeId++) {
+                int finalStoreId = storeId;
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeInsertStoreProducts(insertQuery, connection, finalStoreId), executorService);
+                futures.add(future);
+            }
             CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,9 +143,9 @@ public class DataInserting {
         LOGGER.info("The speed of data insertion per second: {}", 3000000 / res);//TODO prop
     }
 
-    public void executeInsertStoreProducts(String sql, Connection connection) {
+    public void executeInsertStoreProducts(String sql, Connection connection, int storeId) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int storeId = 1; storeId <= NUMBER_OF_STORES; storeId++) {
+            //for (int storeId = 1; storeId <= NUMBER_OF_STORES; storeId++) {
                 for (int productId = 1; productId <= NUMBER_OF_PRODUCT_NAMES; productId++) {
                     int randomQuantity = ThreadLocalRandom.current().nextInt(1, 1000);
                     statement.setInt(1, storeId);
@@ -154,7 +157,7 @@ public class DataInserting {
                     }
                 }
                 LOGGER.info("Insertion of product data {} for the {} store is successful", NUMBER_OF_PRODUCT_NAMES, storeId);
-            }
+           // }
             statement.executeBatch();
             LOGGER.info("Data inserted into store_products table successfully.");
         } catch (Exception e) {

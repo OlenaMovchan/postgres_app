@@ -34,6 +34,12 @@ public class DatabaseInitializer {
     }
 
     public String readScriptFile() {
+
+//        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//        try (InputStream file = classLoader.getResourceAsStream(SCRIPT_FILE);
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(file))){
+
+
         try (FileInputStream file = new FileInputStream(SCRIPT_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 

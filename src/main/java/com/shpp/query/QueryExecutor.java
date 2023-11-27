@@ -40,6 +40,9 @@ public class QueryExecutor {
     }
 
     public String loadQueryFromFile() {
+//        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//        try (InputStream file = classLoader.getResourceAsStream(QUERY_FILE);
+//             BufferedReader reader = new BufferedReader(new InputStreamReader(file))){
         try (FileInputStream file = new FileInputStream(QUERY_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
