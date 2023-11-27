@@ -17,7 +17,4 @@ public class ConnectorDB {
         return DriverManager.getConnection(url, user, pass);
     }
 
-    public static void setDataSource(JdbcDataSource dataSource, String url) {
-        dataSource.setURL(url);
-    }
 }
