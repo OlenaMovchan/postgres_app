@@ -31,7 +31,6 @@ public class QueryExecutor {
             throw new RuntimeException(e);
         }
         if (result != null) {
-            //LOGGER.info("Category name: " + result.getCategoryName());
             LOGGER.info("Category name: " + System.getProperty("category", "Дім"));
             LOGGER.info("Store location: " + result.getStoreLocation());
             LOGGER.info("Total products: " + result.getTotalProducts());
@@ -41,7 +40,7 @@ public class QueryExecutor {
     }
 
     public String loadQueryFromFile() {
-        try (FileInputStream file = new FileInputStream(QUERY_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(QUERY_FILE);
+        try (FileInputStream file = new FileInputStream(QUERY_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder query = new StringBuilder();
@@ -62,7 +61,6 @@ public class QueryExecutor {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    //String category = resultSet.getString("category_name");
                     String storeLocation = resultSet.getString("store_location");
                     int totalProducts = resultSet.getInt("total_products");
                     return new QueryResult(storeLocation, totalProducts);//category,

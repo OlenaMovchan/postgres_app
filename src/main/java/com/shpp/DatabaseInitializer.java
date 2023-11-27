@@ -2,6 +2,7 @@ package com.shpp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.sql.*;
 
@@ -13,9 +14,9 @@ public class DatabaseInitializer {
     public void createTables(String script) {
         try (Connection connection = ConnectorDB.getConnection();
              Statement statement = connection.createStatement()) {
-connection.setAutoCommit(false);
+            connection.setAutoCommit(false);
             executeScript(statement, script);
-connection.commit();
+            connection.commit();
             LOGGER.info("Tables created successfully");
 
         } catch (SQLException e) {
@@ -33,7 +34,7 @@ connection.commit();
     }
 
     public String readScriptFile() {
-        try (FileInputStream file = new FileInputStream(SCRIPT_FILE);//"/" +//InputStream inputStream = getClass().getResourceAsStream(SCRIPT_FILE)
+        try (FileInputStream file = new FileInputStream(SCRIPT_FILE);
              BufferedReader reader = new BufferedReader(new InputStreamReader(file))) {
 
             StringBuilder script = new StringBuilder();
