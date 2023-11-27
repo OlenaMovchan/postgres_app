@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class DataInserting {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataInserting.class);
-    private static final int NUMBER_OF_PRODUCT_NAMES = 100000;
+    private static final int NUMBER_OF_PRODUCT_NAMES = 40000;
     private static final int NUMBER_OF_CATEGORIES = 1000;
     public static final int NUMBER_OF_STORES = 75;
     private ValidatorClass validator = new ValidatorClass();
@@ -81,7 +81,7 @@ public class DataInserting {
         double start = System.currentTimeMillis();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         try (Connection connection = ConnectorDB.getConnection()) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 4; i++) {
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> executeInsertProducts(insertQuery, connection), executorService);
                 futures.add(future);
             }
